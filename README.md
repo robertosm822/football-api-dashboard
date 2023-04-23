@@ -59,6 +59,18 @@ Pacote do composer que roda somente em ambiente de desenvolvimento que corrige f
     vendor/bin/phpcbf --standard=psr12 src/
 ```
 
+## Rodar testes Unit e Feature com PHPUnit
+
+```bash
+    vendor/bin/phpunit tests
+```
+
+Testar uma classe especifica criada de testes:
+
+```bash
+    ./vendor/bin/phpunit tests --filter 'tests\\Feature\\HomeControllerTest'
+```
+
 ## Requerimentos necessários e  padrões adotados
 
  - Ter instalado o <a href="https://getcomposer.org/download/" target="_blank">`Composer`</a> em seu ambiente de desenvolvimento;

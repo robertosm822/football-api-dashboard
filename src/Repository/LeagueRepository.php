@@ -45,9 +45,9 @@ class LeagueRepository
 
     public function getById()
     {
-        
+
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-       
+
         if ($id == false && $id == null) {
             return ['error' => 'Id de League inválido'];
         }
@@ -68,18 +68,17 @@ class LeagueRepository
     public function edit(int $id, array $dataArray)
     {
         $statement = $this->pdo->prepare('UPDATE leagues SET updatedAt = :updatedAt, `name` = :name, country = :country, logo = :logo, flag = :flag WHERE id = :id;');
-        $statement->bindValue(':id', (int)$id,PDO::PARAM_INT);
+        $statement->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $statement->bindValue(':name', $dataArray['name'], PDO::PARAM_STR);
-        $statement->bindValue(':country', $dataArray['country'],PDO::PARAM_STR);
-        $statement->bindValue(':logo', $dataArray['logo'],PDO::PARAM_STR);
-        $statement->bindValue(':flag', $dataArray['flag'],PDO::PARAM_STR);
-        $statement->bindValue(':updatedAt', date('Y-m-d H:i:s'),PDO::PARAM_STR);
+        $statement->bindValue(':country', $dataArray['country'], PDO::PARAM_STR);
+        $statement->bindValue(':logo', $dataArray['logo'], PDO::PARAM_STR);
+        $statement->bindValue(':flag', $dataArray['flag'], PDO::PARAM_STR);
+        $statement->bindValue(':updatedAt', date('Y-m-d H:i:s'), PDO::PARAM_STR);
         $result = $statement->execute();
         if ($result) {
-            return ['sucess'=> 'Editado com sucesso'];
+            return ['sucess' => 'Editado com sucesso'];
         }
-        return ['error'=> 'Ocorreu um erro na edição'];
-        
+        return ['error' => 'Ocorreu um erro na edição'];
     }
 
     public function seachByName($name)
@@ -89,7 +88,7 @@ class LeagueRepository
         $statement->bindValue(':name', $name, \PDO::PARAM_STR);
         $statement->execute();
         $data = $statement->fetchAll(\PDO::FETCH_ASSOC);
-      
+
         return $data;
     }
 
@@ -99,8 +98,8 @@ class LeagueRepository
         $statement->bindValue(1, (int)$id, \PDO::PARAM_INT);
         $result = $statement->execute();
         if ($result) {
-            return ['sucess'=> 'Apagado com sucesso'];
+            return ['sucess' => 'Apagado com sucesso'];
         }
-        return ['error'=> 'Ocorreu um erro na edição'];
+        return ['error' => 'Ocorreu um erro na edição'];
     }
 }

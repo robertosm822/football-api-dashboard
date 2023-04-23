@@ -8,11 +8,10 @@ class Error404Controller implements Controller
 {
     public function processRequest(): void
     {
-        http_response_code(404);   
+        http_response_code(404);
     }
 
     public function store(): void
     {
-
     }
 }

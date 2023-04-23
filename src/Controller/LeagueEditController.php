@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Soccer\Api\Controller;
@@ -12,12 +13,12 @@ class LeagueEditController implements Controller
     public function __construct(private LeagueRepository $leagueRepository)
     {
     }
-    
+
     public function processRequest(): void
     {
         header('Content-Type: application/json');
         $this->store();
-        echo json_encode(['success'=> 'Editado com sucesso']);
+        echo json_encode(['success' => 'Editado com sucesso']);
     }
 
     public function store(): void
@@ -27,10 +28,10 @@ class LeagueEditController implements Controller
             $leagueData = json_decode($request, true);
             $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             $league = [
-                'referal_league_id' => (int)$leagueData['referal_league_id'], 
-                'name' => $leagueData['name'], 
-                'country' => $leagueData['country'], 
-                'logo' => $leagueData['logo'], 
+                'referal_league_id' => (int)$leagueData['referal_league_id'],
+                'name' => $leagueData['name'],
+                'country' => $leagueData['country'],
+                'logo' => $leagueData['logo'],
                 'flag' => $leagueData['flag'],
             ];
             $this->leagueRepository->edit($id, $league);
@@ -40,6 +41,4 @@ class LeagueEditController implements Controller
 
         http_response_code(200);
     }
-
-    
 }

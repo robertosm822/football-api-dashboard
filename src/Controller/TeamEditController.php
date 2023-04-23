@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Soccer\Api\Controller;
@@ -12,12 +13,12 @@ class TeamEditController implements Controller
     public function __construct(private TeamsRepositoy $teamRepository)
     {
     }
-    
+
     public function processRequest(): void
     {
         header('Content-Type: application/json');
         $this->store();
-        echo json_encode(['success'=> 'Editado com sucesso']);
+        echo json_encode(['success' => 'Editado com sucesso']);
     }
 
     public function store(): void
@@ -27,10 +28,10 @@ class TeamEditController implements Controller
             $teamData = json_decode($request, true);
             $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             $team = [
-                'referal_team_id' => (int)$teamData['referal_team_id'], 
-                'name' => $teamData['name'], 
-                'country' => $teamData['country'], 
-                'logo' => $teamData['logo'], 
+                'referal_team_id' => (int)$teamData['referal_team_id'],
+                'name' => $teamData['name'],
+                'country' => $teamData['country'],
+                'logo' => $teamData['logo'],
                 'league' => $teamData['league'],
             ];
             $this->teamRepository->edit($id, $team);
@@ -40,6 +41,4 @@ class TeamEditController implements Controller
 
         http_response_code(200);
     }
-
-    
 }

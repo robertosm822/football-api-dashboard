@@ -8,7 +8,7 @@ class Team
 {
     public readonly int $id;
     public ?string $updatedAt;
-    
+
 
     public function __construct(
         public readonly int $referalTeamId,
@@ -16,7 +16,8 @@ class Team
         public readonly ?string $country,
         public readonly ?string $logo,
         public ?string $createdAt,
-    ) { }
+    ) {
+    }
 
     public function setId(int $id): void
     {

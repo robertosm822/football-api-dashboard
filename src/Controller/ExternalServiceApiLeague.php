@@ -12,35 +12,35 @@ class ExternalServiceApiLeague implements Controller
     public function __construct(private LeagueRepository $leagueRepository)
     {
     }
-    
+
     public function serviceSoccerExternal()
     {
-        
+
         $url = 'https://api-football-v1.p.rapidapi.com/v2/leagues/type/league/brazil/2023?timezone=America/Sao_Paulo';
         $headers = [
             'headers' => [
                 'Accept'     => 'application/json',
-                'x-rapidapi-key'=>'4e081b6d5dmsh213846c08567d5fp1151c8jsn53cc4b1d7139',
+                'x-rapidapi-key' => '4e081b6d5dmsh213846c08567d5fp1151c8jsn53cc4b1d7139',
             ]
         ];
         $client = new Client(['base_uri' => $url,'verify' => false]);
-        $response = $client->request('GET', '',$headers);
-        
+        $response = $client->request('GET', '', $headers);
+
         return json_decode($response->getBody()->getContents(), true);
     }
 
     public function processRequest(): void
     {
-        $this->store();        
+        $this->store();
     }
 
     public function store(): void
     {
         //Fake result
         $leagueData =  [
-            "api"=>
+            "api" =>
             [
-                "leagues" =>[
+                "leagues" => [
                     0 => [
                         "league_id" => 4883,
                         "name"  => "Gaúcho - 1",
@@ -52,10 +52,10 @@ class ExternalServiceApiLeague implements Controller
                     [
                         "league_id" => 4884,
                         "name" => "Carioca - 1",
-                        "logo"=> "https://media-1.api-sports.io/football/leagues/624.png",
+                        "logo" => "https://media-1.api-sports.io/football/leagues/624.png",
                         "flag" => "https://media-3.api-sports.io/flags/br.svg",
                     ]
-                ]   
+                ]
             ]
         ];
         header('Content-Type: application/json');
@@ -67,10 +67,10 @@ class ExternalServiceApiLeague implements Controller
             foreach ($leagueDataArray['api']['leagues'] as $data) {
                 //var_dump($data['league_id']);
                 $league = new League(
-                    $data['league_id'], 
-                    $data['name'], 
-                    $data['country'], 
-                    $data['logo'], 
+                    $data['league_id'],
+                    $data['name'],
+                    $data['country'],
+                    $data['logo'],
                     $data['flag'],
                     date('Y-m-d H:i:s')
                 );
@@ -78,11 +78,10 @@ class ExternalServiceApiLeague implements Controller
             }
             echo json_encode(['success' => 'Leagues inseridas com sucesso!']);
             http_response_code(500);
-        }catch (Error $e) {
+        } catch (Error $e) {
             echo json_encode(['error' => 'Ocorreu um erro de implementação']);
             http_response_code(500);
             return;
         }
-        
     }
 }

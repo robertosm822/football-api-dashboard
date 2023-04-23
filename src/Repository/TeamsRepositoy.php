@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Soccer\Api\Repository;
@@ -21,9 +22,7 @@ class TeamsRepositoy
         $statement->bindValue(':country', $team->country);
         $statement->bindValue(':logo', $team->logo);
         $statement->bindValue(':createdAt', date('Y-m-d H:i:s'));
-
         $result = $statement->execute();
-
         return $result;
     }
 
@@ -51,14 +50,12 @@ class TeamsRepositoy
 
     public function getById()
     {
-        
+
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-       
         if ($id == false && $id == null) {
             return ['error' => 'Id de League inválido'];
         }
         $league = $this->find($id);
-
         return $league;
     }
 
@@ -67,7 +64,6 @@ class TeamsRepositoy
         $statement = $this->pdo->prepare('SELECT * FROM teams WHERE id = ?;');
         $statement->bindValue(1, $id, \PDO::PARAM_INT);
         $statement->execute();
-
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
@@ -77,29 +73,26 @@ class TeamsRepositoy
         $statement = $this->pdo->prepare('SELECT * FROM teams WHERE name like ?;');
         $statement->bindValue(1, $name, \PDO::PARAM_STR);
         $statement->execute();
-
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function update()
     {
-        
     }
     public function edit(int $id, array $dataArray)
     {
         $statement = $this->pdo->prepare('UPDATE teams SET updatedAt = :updatedAt, `name` = :name, country = :country, logo = :logo, league = :league WHERE id = :id;');
-        $statement->bindValue(':id', (int)$id,PDO::PARAM_INT);
+        $statement->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $statement->bindValue(':name', $dataArray['name'], PDO::PARAM_STR);
-        $statement->bindValue(':country', $dataArray['country'],PDO::PARAM_STR);
-        $statement->bindValue(':logo', $dataArray['logo'],PDO::PARAM_STR);
-        $statement->bindValue(':league', $dataArray['league'],PDO::PARAM_STR);
-        $statement->bindValue(':updatedAt', date('Y-m-d H:i:s'),PDO::PARAM_STR);
+        $statement->bindValue(':country', $dataArray['country'], PDO::PARAM_STR);
+        $statement->bindValue(':logo', $dataArray['logo'], PDO::PARAM_STR);
+        $statement->bindValue(':league', $dataArray['league'], PDO::PARAM_STR);
+        $statement->bindValue(':updatedAt', date('Y-m-d H:i:s'), PDO::PARAM_STR);
         $result = $statement->execute();
         if ($result) {
-            return ['sucess'=> 'Editado com sucesso'];
+            return ['sucess' => 'Editado com sucesso'];
         }
-        return ['error'=> 'Ocorreu um erro na edição'];
-        
+        return ['error' => 'Ocorreu um erro na edição'];
     }
 
     public function delete(int $id)
@@ -108,8 +101,8 @@ class TeamsRepositoy
         $statement->bindValue(1, (int)$id, \PDO::PARAM_INT);
         $result = $statement->execute();
         if ($result) {
-            return ['sucess'=> 'Apagado com sucesso'];
+            return ['sucess' => 'Apagado com sucesso'];
         }
-        return ['error'=> 'Ocorreu um erro na edição'];
+        return ['error' => 'Ocorreu um erro na edição'];
     }
 }

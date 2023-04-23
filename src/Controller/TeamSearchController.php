@@ -8,7 +8,6 @@ use Soccer\Api\Repository\TeamsRepositoy;
 
 class TeamSearchController implements Controller
 {
-
     public function __construct(private TeamsRepositoy $teamsRepositoy)
     {
     }
@@ -20,7 +19,6 @@ class TeamSearchController implements Controller
 
     public function store(): void
     {
-        
     }
 
     public function seachByName(): void

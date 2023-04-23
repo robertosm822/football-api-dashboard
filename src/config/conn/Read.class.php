@@ -4,8 +4,8 @@
  * <b>Read.class:</b>
  * Classe responsável por leituras genéricas no banco de dados!
  */
-class Read extends Conn {
-
+class Read extends Conn
+{
     private $Select;
     private $Places;
     private $Result;
@@ -23,9 +23,10 @@ class Read extends Conn {
      * @param STRING $Termos = WHERE | ORDER | LIMIT :limit | OFFSET :offset
      * @param STRING $ParseString = link={$link}&link2={$link2}
      */
-	
-    public function ExeRead($Tabela, $Termos = null, $ParseString = null) {
-        if (!empty($ParseString)):
+
+    public function ExeRead($Tabela, $Termos = null, $ParseString = null)
+    {
+        if (!empty($ParseString)) :
             parse_str($ParseString, $this->Places);
         endif;
 
@@ -38,7 +39,8 @@ class Read extends Conn {
      * um resultado chame o índice getResult()[0]!
      * @return ARRAY $this = Array ResultSet
      */
-    public function getResult() {
+    public function getResult()
+    {
         return $this->Result;
     }
 
@@ -46,15 +48,17 @@ class Read extends Conn {
      * <b>Contar Registros: </b> Retorna o numero de registros encontrados pelo select!
      * @return INT $Var = Quantidade de registros encontrados
      */
-    public function getRowCount() {
+    public function getRowCount()
+    {
         return $this->Read->rowCount();
     }
-    
-    
 
-    public function FullRead($Query, $ParseString = null) {
+
+
+    public function FullRead($Query, $ParseString = null)
+    {
         $this->Select = (string) $Query;
-        if (!empty($ParseString)):
+        if (!empty($ParseString)) :
             parse_str($ParseString, $this->Places);
         endif;
         $this->Execute();
@@ -66,7 +70,8 @@ class Read extends Conn {
      * @param STRING $Query = Query Select Syntax
      * @param STRING $ParseString = link={$link}&link2={$link2}
      */
-    public function setPlaces($ParseString) {
+    public function setPlaces($ParseString)
+    {
         parse_str($ParseString, $this->Places);
         $this->Execute();
     }
@@ -77,17 +82,19 @@ class Read extends Conn {
      * ****************************************
      */
     //Obtem o PDO e Prepara a query
-    private function Connect() {
+    private function Connect()
+    {
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($this->Select);
         $this->Read->setFetchMode(PDO::FETCH_ASSOC);
     }
 
     //Cria a sintaxe da query para Prepared Statements
-    private function getSyntax() {
-        if ($this->Places):
-            foreach ($this->Places as $Vinculo => $Valor):
-                if ($Vinculo == 'limit' || $Vinculo == 'offset'):
+    private function getSyntax()
+    {
+        if ($this->Places) :
+            foreach ($this->Places as $Vinculo => $Valor) :
+                if ($Vinculo == 'limit' || $Vinculo == 'offset') :
                     $Valor = (int) $Valor;
                 endif;
                 $this->Read->bindValue(":{$Vinculo}", $Valor, ( is_int($Valor) ? PDO::PARAM_INT : PDO::PARAM_STR));
@@ -96,7 +103,8 @@ class Read extends Conn {
     }
 
     //Obtem a conexao e a Syntax, executa a query!
-    private function Execute() {
+    private function Execute()
+    {
         $this->Connect();
         try {
             $this->getSyntax();
@@ -107,8 +115,4 @@ class Read extends Conn {
             WSErro("<b>Erro ao Ler:</b> {$e->getMessage()}", $e->getCode());
         }
     }
-    
-    
-    
-
 }

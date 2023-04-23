@@ -8,7 +8,6 @@ use Soccer\Api\Repository\TeamsRepositoy;
 
 class TeamGetByIdController implements Controller
 {
-
     public function __construct(private TeamsRepositoy $teamsRepositoy)
     {
     }
@@ -20,7 +19,6 @@ class TeamGetByIdController implements Controller
 
     public function store(): void
     {
-        
     }
 
     public function getById(): void

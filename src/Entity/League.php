@@ -8,7 +8,7 @@ class League
 {
     public readonly int $id;
     public ?string $updatedAt;
-    
+
 
     public function __construct(
         public readonly int $referalLeagueId,
@@ -18,7 +18,6 @@ class League
         public readonly ?string $flag,
         public ?string $createdAt,
     ) {
-        
     }
 
     public function setId(int $id): void

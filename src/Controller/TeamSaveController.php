@@ -8,11 +8,10 @@ use Soccer\Api\Repository\TeamsRepositoy;
 
 class TeamSaveController implements Controller
 {
-
     public function __construct(private TeamsRepositoy $teamsRepositoy)
     {
     }
-    
+
     public function processRequest(): void
     {
         header('Content-Type: application/json');
@@ -25,10 +24,10 @@ class TeamSaveController implements Controller
         try {
             $leagueData = json_decode($request, true);
             $league = new Team(
-                $leagueData['referal_team_id'], 
-                $leagueData['name'], 
-                $leagueData['country'], 
-                $leagueData['logo'], 
+                $leagueData['referal_team_id'],
+                $leagueData['name'],
+                $leagueData['country'],
+                $leagueData['logo'],
                 $leagueData['createdAt']
             );
             $this->teamsRepositoy->add($league);

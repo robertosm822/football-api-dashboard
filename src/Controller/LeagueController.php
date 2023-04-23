@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Soccer\Api\Controller;
@@ -13,7 +14,7 @@ class LeagueController implements Controller
     public function __construct(private LeagueRepository $leagueRepository)
     {
     }
-    
+
     public function processRequest(): void
     {
         header('Content-Type: application/json');
@@ -26,14 +27,7 @@ class LeagueController implements Controller
         $request = file_get_contents('php://input');
         try {
             $leagueData = json_decode($request, true);
-            $league = new League(
-                $leagueData['referal_league_id'], 
-                $leagueData['name'], 
-                $leagueData['country'], 
-                $leagueData['logo'], 
-                $leagueData['flag'],
-                $leagueData['createdAt']
-            );
+            $league = new League($leagueData['referal_league_id'], $leagueData['name'], $leagueData['country'], $leagueData['logo'], $leagueData['flag'], $leagueData['createdAt']);
             $this->leagueRepository->add($league);
         } catch (PDOException $e) {
             ErrorHandler::WSErro("<b>Erro ao cadastrar:</b> {$e->getMessage()}", $e->getCode());
@@ -41,6 +35,4 @@ class LeagueController implements Controller
 
         http_response_code(201);
     }
-
-    
 }

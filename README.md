@@ -51,6 +51,14 @@ CREATE TABLE `teams` (
 ```
 OBS: criar índices para o campo league
 
+## Rodar componente para formatar e ajustar aos padrões da PSR-12
+
+Pacote do composer que roda somente em ambiente de desenvolvimento que corrige formatação e identação segundo as normas da PSR-12:
+
+```bash
+    vendor/bin/phpcbf --standard=psr12 src/
+```
+
 ## Requerimentos necessários e  padrões adotados
 
  - Ter instalado o <a href="https://getcomposer.org/download/" target="_blank">`Composer`</a> em seu ambiente de desenvolvimento;

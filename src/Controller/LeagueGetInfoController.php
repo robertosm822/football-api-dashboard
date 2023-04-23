@@ -18,7 +18,6 @@ class LeagueGetInfoController implements Controller
 
     public function store(): void
     {
-        
     }
 
     public function getById(): void
@@ -37,15 +36,14 @@ class LeagueGetInfoController implements Controller
             echo json_encode(['error' => $e]);
             http_response_code(500);
             return;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             echo json_encode(['error' => $e]);
             http_response_code(500);
             return;
-        }catch (Error $e) {
+        } catch (Error $e) {
             echo json_encode(['error' => 'Ocorreu um erro de implementação']);
             http_response_code(500);
             return;
         }
-        
     }
 }

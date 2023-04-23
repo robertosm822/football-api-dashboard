@@ -8,5 +8,4 @@ interface Controller
 {
     public function processRequest(): void;
     public function store(): void;
-
 }

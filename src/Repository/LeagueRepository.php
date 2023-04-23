@@ -22,7 +22,7 @@ class LeagueRepository
         $statement->bindValue(':country', $league->country);
         $statement->bindValue(':logo', $league->logo);
         $statement->bindValue(':flag', $league->flag);
-        $statement->bindValue(':createdAt', $league->createdAt);
+        $statement->bindValue(':createdAt', date('Y-m-d H:i:s'));
 
         $result = $statement->execute();
         $id = $this->pdo->lastInsertId();
